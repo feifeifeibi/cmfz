@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.dao.MenuMapper">
+    <resultMap id="BaseResultMap" type="com.baizhi.entity.Menu">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="iconCls" jdbcType="VARCHAR" property="iconCls" />
+        <result column="href" jdbcType="INTEGER" property="href" />
+        <result column="lev" jdbcType="VARCHAR" property="lev" />
+        <collection javaType="java.util.List"  property="menus" ofType="com.baizhi.entity.Menu">
+            <id column="mid" property="mid"/>
+            <result column="mname" property="name"></result>
+            <result column="miconCls" property="iconCls" />
+            <result column="mhref" property="href" />
+            <result column="mlev" property="lev"></result>
+        </collection>
+    </resultMap>
+
+
+    <select id="selectAll" resultMap="BaseResultMap">
+       select m1.id,m1.name,m1.iconCls,m1.href,m1.level,m1.mid,m2.id mmid,m2.name mname,m2.iconCls miconCls,m2.href mhref,m2.level mlevel
+      from cm_menu m1 join cm_menu m2
+      on m2.mid=m1.id
+    </select>
+
+
+    <sql id="Base_Column_List">
+      id, name, level, mid
+    </sql>
+
+   <!-- <select id="">
+
+    </select>-->
+
+
+
+</mapper>
